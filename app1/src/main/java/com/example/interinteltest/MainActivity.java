@@ -1,23 +1,20 @@
 package com.example.interinteltest;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.core.BaseActivity;
 import com.example.interinteltest.api.GetDataInterface;
-import com.example.interinteltest.model.RetroOrigin;
+import com.example.interinteltest.model.JSONResponse;
 import com.example.interinteltest.network.RetrofitClientInstance;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainActivity extends BaseActivity {
 
@@ -47,30 +44,25 @@ public class MainActivity extends BaseActivity {
 
     private void fetchOrigin() {
         GetDataInterface service = RetrofitClientInstance.getRetrofitInstance().create(GetDataInterface.class);
-        Call <RetroOrigin> retroOriginCall = service.getOrigin();
+       Call<JSONResponse> jsonResponseCall = service.getOrigin();
+       jsonResponseCall.enqueue(new Callback<JSONResponse>() {
+           @Override
+           public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+               Toast.makeText(MainActivity.this, response.body().getOrigin(), Toast.LENGTH_SHORT).show();
+               responseText.setText(response.body().getOrigin());
+               Log.d("olal", response.toString() );
+           }
 
-        retroOriginCall.enqueue(new Callback<RetroOrigin>() {
-            @Override
-            public void onResponse(Call<RetroOrigin> call, Response<RetroOrigin> response) {
-                if (response.body() != null)
-                {
-                    RetroOrigin retroOrigin = response.body();
-                    responseText.setText(retroOrigin.getOrigin());
+           @Override
+           public void onFailure(Call<JSONResponse> call, Throwable t) {
+               Log.d("error", t.toString());
 
-
-
-                Log.d("olal", response.toString());
-            }
-            }
-
-            @Override
-            public void onFailure(Call<RetroOrigin> call, Throwable t) {
-
-            }
-        });
+           }
+       });
 
     }
 
     public void fetchResponse(View view) {
+
     }
 }
