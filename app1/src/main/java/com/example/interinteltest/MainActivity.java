@@ -52,7 +52,15 @@ public class MainActivity extends BaseActivity {
         retroOriginCall.enqueue(new Callback<RetroOrigin>() {
             @Override
             public void onResponse(Call<RetroOrigin> call, Response<RetroOrigin> response) {
+                if (response.body() != null)
+                {
+                    RetroOrigin retroOrigin = response.body();
+                    responseText.setText(retroOrigin.getOrigin());
+
+
+
                 Log.d("olal", response.toString());
+            }
             }
 
             @Override
@@ -61,5 +69,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+    }
+
+    public void fetchResponse(View view) {
     }
 }
