@@ -36,7 +36,7 @@
         <Button
             android:id="@+id/btnView"
             android:layout_toRightOf="@+id/btnAdd"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="VIEW"/>
