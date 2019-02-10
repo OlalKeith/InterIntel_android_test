@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class App2Activity extends AppCompatActivity{
+import com.example.core.BaseActivity;
+
+public class App2Activity extends BaseActivity {
 
     DatabaseHelper mDatabaseHelper;
     private Button btnAdd, btnViewData;
